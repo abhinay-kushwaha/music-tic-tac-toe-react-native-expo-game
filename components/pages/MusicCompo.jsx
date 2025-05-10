@@ -80,7 +80,19 @@ const MusicCompo = () => {
 
   return (
     <View style={styles.container}>
-      <Animated.Image
+     
+      <View style={styles.buttonRow}>
+        <TouchableOpacity
+          style={[
+            styles.iconButton,
+            isPlaying && { borderColor: '#ff7a9b', borderWidth: 4, borderRadius: 50 }, // Blue border for active button
+          ]}
+          onPress={playMusic}
+          disabled={isPlaying}
+        >
+          <AntDesign name="play" size={24} color="black" />
+        </TouchableOpacity>
+         <Animated.Image
         source={require('../../assets/music_icon.jpg')} // Place your icon in assets
         style={[
           styles.musicImg,
@@ -88,16 +100,11 @@ const MusicCompo = () => {
           !isPlaying && { opacity: 0.5 },
         ]}
       />
-      <View style={styles.buttonRow}>
         <TouchableOpacity
-          style={styles.iconButton}
-          onPress={playMusic}
-          disabled={isPlaying}
-        >
-         <AntDesign name="play" size={24} color="black" />
-        </TouchableOpacity>
-        <TouchableOpacity
-          style={styles.iconButton}
+          style={[
+            styles.iconButton,
+            !isPlaying && { borderColor: '#ff7a9b', borderWidth: 4, borderRadius: 50  }, // Blue border for active button
+          ]}
           onPress={stopMusic}
           disabled={!isPlaying}
         >
@@ -119,10 +126,15 @@ const styles = StyleSheet.create({
   buttonRow: {
     flexDirection: 'row',
     justifyContent: 'center',
+    alignItems: 'center',
     gap: 24,
   },
   iconButton: {
-    padding: 12,
+    width: 36, // Set consistent width
+    height: 36, // Set consistent height
+    justifyContent: 'center', // Center the icon
+    alignItems: 'center', // Center the icon
+    padding: 2,
   },
   icon: {
     width: 36,

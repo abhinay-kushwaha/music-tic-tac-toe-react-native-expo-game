@@ -12,7 +12,6 @@ import {
 import Board from '../Board';
 import { createEmptyBoard, checkWinner } from '../../utils/gameLogic';
 import Confetti from 'react-native-confetti';
-import MusicCompo from './MusicCompo';
 
 const screenHeight = Dimensions.get('window').height;
 
@@ -52,7 +51,7 @@ const TicTokToi = () => {
     if (result) {
       setWinner(result);
     } else {
-      setCurrentPlayer(currentPlayer === 'X' ? 'O' : 'X');
+      setCurrentPlayer(currentPlayer === 'X' ? 'O' : 'X'); // Switch player
     }
   };
 
@@ -66,7 +65,7 @@ const TicTokToi = () => {
 
   const confirmRestart = () => {
     setBoard(createEmptyBoard());
-    setCurrentPlayer('X');
+    setCurrentPlayer((prevPlayer) => (prevPlayer === 'X' ? 'O' : 'X')); // Alternate starting player
     setWinner(null);
     setShowRestartPopup(false);
     setShowEndPopup(false);
@@ -74,10 +73,39 @@ const TicTokToi = () => {
   };
 
   return (
-  
-   
     <View style={styles.container}>
-      <Text style={styles.title}>Tic-Tac-Toe</Text>
+      {/* <Text style={styles.title}>Tic-Tac-Toe</Text> */}
+
+      {/* Player Cards */}
+      <View style={styles.playerCards}>
+        {/* Card for Player X */}
+        <View
+          style={[
+            styles.card,
+            currentPlayer === 'X' && styles.activeCard, // Highlight active player
+          ]}
+        >
+          <Image
+            source={require('../../assets/girl.jpg')} // Replace with your X image
+            style={styles.cardImage}
+          />
+          <Text style={[styles.cardText, { color: '#ff416c' }]}>Player X</Text> {/* Pink color for X */}
+        </View>
+
+        {/* Card for Player O */}
+        <View
+          style={[
+            styles.card,
+            currentPlayer === 'O' && styles.activeCard, // Highlight active player
+          ]}
+        >
+          <Image
+            source={require('../../assets/boy.jpg')} // Replace with your O image
+            style={styles.cardImage}
+          />
+          <Text style={[styles.cardText, { color: '#333' }]}>Player O</Text> {/* Default color for O */}
+        </View>
+      </View>
 
       <Board board={board} onCellPress={handleCellPress} disabled={!!winner} />
 
@@ -98,12 +126,16 @@ const TicTokToi = () => {
       {/* End Game Popup */}
       <Modal visible={showEndPopup} transparent animationType="none">
         <View style={styles.popupOverlay}>
-          <Animated.View style={[styles.popupContent, { transform: [{ scale: scaleAnim }] }]}>
+          <Animated.View
+            style={[styles.popupContent, { transform: [{ scale: scaleAnim }] }]}
+          >
             <Image
               source={
                 winner === 'Draw'
-                  ? require('../../assets/draw.gif')
-                  : require('../../assets/win.gif')
+                  ? require('../../assets/draw.gif') // Image for a draw
+                  : winner === 'X'
+                  ? require('../../assets/girl.jpg') // Image for X winner
+                  : require('../../assets/boy.jpg') // Image for O winner
               }
               style={styles.popupImage}
             />
@@ -120,7 +152,9 @@ const TicTokToi = () => {
       {/* Restart Popup */}
       <Modal visible={showRestartPopup} transparent animationType="none">
         <View style={styles.popupOverlay}>
-          <Animated.View style={[styles.popupContent, { transform: [{ scale: scaleAnim }] }]}>
+          <Animated.View
+            style={[styles.popupContent, { transform: [{ scale: scaleAnim }] }]}
+          >
             <Image
               loop={true}
               source={require('../../assets/dolly.gif')}
@@ -134,33 +168,57 @@ const TicTokToi = () => {
         </View>
       </Modal>
     </View>
-    
   );
 };
 
 const styles = StyleSheet.create({
   container: { flex: 1, alignItems: 'center', justifyContent: 'center', backgroundColor: '#e3f0ff' },
   title: { fontSize: 32, fontWeight: 'bold', marginBottom: 20 },
+  playerCards: {
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+    // width: '100%',
+    gap: 40,
+    marginBottom: 20,
+  },
+  card: {
+    width: 120,
+    height: 150,
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: '#f9f9f9',
+    borderRadius: 15,
+    borderWidth: 2,
+    borderColor: '#ccc',
+    padding: 10,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 4 },
+    shadowOpacity: 0.2,
+    shadowRadius: 5,
+    elevation: 5,
+  },
+  activeCard: {
+    borderColor: '#ff416c', // Highlight color for the active player
+    backgroundColor: '#ffe6eb', // Light background for the active player
+  },
+  cardImage: {
+    width: 60,
+    height: 60,
+    marginBottom: 10,
+    borderRadius: 30,
+    resizeMode: 'contain',
+  },
+  cardText: {
+    fontSize: 18,
+    fontWeight: 'bold',
+    color: '#333',
+  },
   info: {
     fontSize: 20,
     margin: 20,
     fontWeight: 'bold',
     color: '#ff416c',
   },
-
-  board: {
-    margin: 20,
-    backgroundColor: '#ffffff', // White background for the board
-    borderRadius: 16,            // Optional: rounded corners for a modern look
-    padding: 8,                  // Optional: some padding inside the board
-  },
-  row: { flexDirection: 'row' },
-  cell: {
-    width: 80, height: 80, borderWidth: 1, alignItems: 'center', justifyContent: 'center',
-    backgroundColor: '#000000'
-  },
-  cellText: { fontSize: 36, fontWeight: 'bold' },
-
   buttonRestart: {
     marginTop: 20,
     paddingVertical: 12,
