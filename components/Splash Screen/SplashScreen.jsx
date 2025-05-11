@@ -37,7 +37,7 @@ const SplashScreen = ({ navigation }) => {
         source={require('../../assets/splash-icon.png')}
         style={[styles.logo, { transform: [{ scale: scaleAnim }] }]}
       />
-      <Text style={styles.text}>  Tic-Tok-Toi</Text>
+      <Text style={styles.text}>Tic Tac Toe</Text>
     </SafeAreaView>
   );
 };

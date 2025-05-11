@@ -1,4 +1,10 @@
-{
+import React from 'react'
+import { View } from 'react-native'
+
+const forAPK = () => {
+  return (
+    <View>
+{/* {
   "cli": {
     "version": ">= 16.4.0",
     "appVersionSource": "remote"
@@ -10,18 +16,21 @@
     },
     "preview": {
       "distribution": "internal",
-      "android": {
-        "buildType": "app-bundle"
+       "android": {
+        "buildType": "apk"
       }
     },
     "production": {
-      "autoIncrement": true,
-      "android": {
-        "buildType": "app-bundle"
-      }
+      "autoIncrement": true
     }
   },
   "submit": {
     "production": {}
   }
+} */}
+
+    </View>
+  )
 }
+
+export default forAPK
