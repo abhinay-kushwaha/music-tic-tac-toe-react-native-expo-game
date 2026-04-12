@@ -19,14 +19,12 @@
         "foregroundImage": "./assets/splash-icon.png"
       },
       "edgeToEdgeEnabled": true,
-      "package": "com.abhinaykushwaha.TicTacToe"
+      "package": "com.abhinay.tictactoe"
     },
     "web": {
       "favicon": "./assets/splash-icon.png"
     },
-    "plugins": [
-      "expo-audio"
-    ],
+    "plugins": [],
     "extra": {
       "eas": {
         "projectId": "99031fa7-2c63-4705-b8d7-546fdb3aeb76"
