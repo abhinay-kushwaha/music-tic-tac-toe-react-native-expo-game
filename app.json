@@ -2,7 +2,7 @@
   "expo": {
     "name": "Tic Tac Toe",
     "slug": "Tic-Tac-Toe",
-    "version": "1.0.0",
+    "version": "1.0.1",
     "orientation": "portrait",
     "icon": "./assets/splash-icon.png",
     "userInterfaceStyle": "light",
@@ -19,7 +19,10 @@
         "foregroundImage": "./assets/splash-icon.png"
       },
       "edgeToEdgeEnabled": true,
-      "package": "com.abhinay.tictactoe"
+      "package": "com.abhinay.tictactoe",
+      "blockedPermissions": [
+        "android.permission.RECORD_AUDIO"
+      ]
     },
     "web": {
       "favicon": "./assets/splash-icon.png"
